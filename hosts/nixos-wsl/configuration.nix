@@ -32,32 +32,6 @@
     };
   };
 
-  # Bootloader.
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-    grub = {
-      enable = true;
-      devices = ["nodev"];
-      efiSupport = true;
-      useOSProber = true;
-      # Limit the generations to keep.
-      configurationLimit = 10;
-    };
-  };
-
-  # Networking
-  networking = {
-    hostName = "nixos"; # Define your hostname.
-    networkmanager.enable = true;
-
-    # Open ports in the firewall.
-    firewall.allowedTCPPorts = [
-      22
-      3306
-      8080
-    ];
-  };
-
   # Time zone
   time = {
     hardwareClockInLocalTime = true;
@@ -78,10 +52,6 @@
       LC_TELEPHONE = "en_US.UTF-8";
       LC_TIME = "en_US.UTF-8";
     };
-  };
-  console = {
-    packages = [pkgs.terminus_font];
-    font = "${pkgs.terminus_font}/share/consolefonts/ter-i22b.psf.gz";
   };
 
   # Before changing this value read the documentation for this option
