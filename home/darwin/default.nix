@@ -1,6 +1,6 @@
 {
   imports = [
-    ../core
+    ../base
     ./alacritty
     ./cloud
     ./dev
