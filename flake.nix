@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
     darwin = {
       url = "github:lnl7/nix-darwin";
@@ -25,10 +26,37 @@
   outputs = {
     self,
     darwin,
+    nixpkgs,
+    nixos-wsl,
     ...
   } @ inputs: let
     inherit (self) outputs;
   in {
+
+    #####################################################
+    # NixOS Machines
+    #####################################################
+
+    nixosConfigurations = {
+      nixos-wsl = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          nixos-wsl.nixosModules.default
+          {
+            system.stateVersion = "24.05";
+            wsl.enable = true;
+          }
+          ./hosts/nixos-wsl
+          inputs.home-manager.nixosModules.home-manager
+        ];
+      };
+    };
+
+    #####################################################
+    # MacOS Machines
+    #####################################################
+
     darwinConfigurations = {
       mbp = darwin.lib.darwinSystem {
         specialArgs = {inherit inputs outputs;};

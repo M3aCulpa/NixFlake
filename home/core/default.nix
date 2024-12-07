@@ -3,6 +3,7 @@
     ./utility
     ./zsh
   ];
+  
   nixpkgs = {
     config = {
       allowUnfree = true;

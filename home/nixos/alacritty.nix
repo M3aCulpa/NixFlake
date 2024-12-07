@@ -1,10 +1,10 @@
 {...}: {
   imports = [
-    ../../../modules/home/alacritty
+    ../../modules/home/alacritty
   ];
 
   programs.alacritty = {
     enable = true;
-    fontOffset = "{ x = 2, y = 2 }";
+    fontSize = 10.25;
   };
 }

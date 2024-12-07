@@ -14,10 +14,10 @@ in {
         the primary user of this system
         Ex:
 
-        tommyT = {
-          name = "tommyT";
+        jbenge = {
+          name = "jbenge";
           isNormalUser = true;
-          description = "the T";
+          description = "Johnathan";
           extraGroups = ["wheel"];
           shell = pkgs.zsh;
         }
