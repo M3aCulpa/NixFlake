@@ -13,12 +13,21 @@
     neofetch
     openssl
     parallel
+    azure-cli
+    kubectl
+    kind
+    kubernetes-helm
     pcsctools
     qemu
     sshpass
     virtio-win
     xsel
   ];
+
+   security.sudo = {
+    enable = true;
+    wheelNeedsPassword = true;
+  };
 
   # Add zsh to /etc/shells.
   environment.shells = with pkgs; [zsh];
@@ -52,6 +61,33 @@
       LC_TELEPHONE = "en_US.UTF-8";
       LC_TIME = "en_US.UTF-8";
     };
+  };
+
+  # Networking
+  networking = {
+    hostName = "nixos"; # Define your hostname.
+    networkmanager.enable = true;
+
+    # Open ports in the firewall.
+    firewall.allowedTCPPorts = [
+      22
+      3306
+      6443 # k3s: required so that pods can reach the API server (running on port 6443 by default)
+      8080
+    ];
+  };
+
+  # Virtualisation settings
+  virtualisation = {
+    docker.rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+    containerd = {
+      enable = true;
+    };
+    libvirtd.enable = true;
+    # vmware.host.enable = true;
   };
 
   # Before changing this value read the documentation for this option

@@ -11,9 +11,6 @@
   };
 
   home = {
-    file.".zshrc".text = ''
-      autoload -U compinit && compinit
-    '';
     stateVersion = "23.11";
   };
 

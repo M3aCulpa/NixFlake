@@ -98,7 +98,7 @@ in {
   options.programs.alacritty = {
     fontSize = lib.mkOption {
       type = lib.types.number;
-      default = 11.25;
+      default = 15;
       description = "the font size to render";
     };
 

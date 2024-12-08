@@ -5,6 +5,6 @@
 
   programs.alacritty = {
     enable = true;
-    fontSize = 10.25;
+    fontSize = 15;
   };
 }
