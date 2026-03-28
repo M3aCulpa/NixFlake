@@ -3,12 +3,12 @@
   lib,
   ...
 }: let
-  cfg = config.darwinSettings;
+  cfg = config.systemSettings;
 in {
   options = {
-    darwinSettings.enable = lib.mkEnableOption "enable darwin settings";
+    systemSettings.enable = lib.mkEnableOption "enable system settings";
 
-    darwinSettings.user = lib.mkOption {
+    systemSettings.user = lib.mkOption {
       type = lib.types.attrs;
       description = ''
         the primary user of this system

@@ -14,7 +14,7 @@ in {
     ../../settings/nixos
   ];
 
-  nixSettings = {
+  systemSettings = {
     enable = true;
     user = jbenge;
   };

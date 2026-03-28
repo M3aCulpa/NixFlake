@@ -15,11 +15,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
   };
 
@@ -31,7 +26,24 @@
     ...
   } @ inputs: let
     inherit (self) outputs;
+    forAllSystems = nixpkgs.lib.genAttrs ["x86_64-linux" "aarch64-darwin"];
   in {
+
+    #####################################################
+    # Dev Shell
+    #####################################################
+
+    devShells = forAllSystems (system: let
+      pkgs = nixpkgs.legacyPackages.${system};
+    in {
+      default = pkgs.mkShell {
+        packages = with pkgs; [
+          alejandra
+          nixd
+          git
+        ];
+      };
+    });
 
     #####################################################
     # NixOS Machines
@@ -66,8 +78,5 @@
         ];
       };
     };
-
-    # Expose the package set, including overlays, for convenience.
-    darwinPackages = self.darwinConfigurations."simple".pkgs;
   };
 }

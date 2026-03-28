@@ -3,12 +3,12 @@
   lib,
   ...
 }: let
-  cfg = config.nixSettings;
+  cfg = config.systemSettings;
 in {
   options = {
-    nixSettings.enable = lib.mkEnableOption "enable nix settings";
+    systemSettings.enable = lib.mkEnableOption "enable system settings";
 
-    nixSettings.user = lib.mkOption {
+    systemSettings.user = lib.mkOption {
       type = lib.types.attrs;
       description = ''
         the primary user of this system

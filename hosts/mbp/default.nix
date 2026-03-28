@@ -9,7 +9,7 @@ in {
     ../../settings/darwin
   ];
 
-  darwinSettings = {
+  systemSettings = {
     enable = true;
     user = m3aculpa;
   };
