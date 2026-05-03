@@ -9,17 +9,15 @@
 in {
   imports = [
     ./configuration.nix
-    ./services.nix
-
     ../../settings/nixos
   ];
+
+  wsl.enable = true;
 
   systemSettings = {
     enable = true;
     user = jbenge;
   };
 
-  home-manager.users = {
-    "${jbenge.name}" = import ../../home/nixos;
-  };
+  home-manager.users.${jbenge.name} = import ../../home/nixos;
 }

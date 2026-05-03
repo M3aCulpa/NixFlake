@@ -10,6 +10,9 @@
     gh
     jq
     yq
+    eza
+    fzf
+    git-filter-repo
   ];
 
   programs = {

@@ -1,5 +1,5 @@
 {pkgs, ...}: {
   fonts.packages = with pkgs; [
-    (nerdfonts.override {fonts = ["Mononoki"];})
+    (nerdfonts.override {fonts = ["Meslo" "Mononoki"];})
   ];
 }

@@ -1,8 +1,6 @@
-{...}: let
-in {
+{
   imports = [
-    ./users.nix
-
     ../base
+    ./users.nix
   ];
 }

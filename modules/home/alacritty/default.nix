@@ -1,119 +1,138 @@
 {
   lib,
   config,
-  pkgs,
   ...
-}: let
-  cfg = config.programs.alacritty;
-in {
-  config = {
-    ##################################################################
-    # Files
-    ##################################################################
-
-    home.file."./.config/alacritty/alacritty.toml" = {
-      text = ''
-        import = [
-          "~/.config/alacritty/cyberpunk.toml"
-        ]
-        live_config_reload = true
-
-        [env]
-        TERM = "xterm-256color"
-
-        [window]
-        padding.x = 10
-        padding.y = 10
-
-        opacity = 0.7
-
-        [font]
-        size = ${builtins.toString cfg.fontSize}
-        normal = { family = "Mononoki Nerd Font", style = "Regular" }
-        bold = { family = "Mononoki Nerd Font", style = "Bold" }
-        italic = { family = "Mononoki Nerd Font", style = "Italic" }
-        bold_italic = { family = "Mononoki Nerd Font", style = "BoldItalic" }
-        offset = ${cfg.fontOffset}
-
-        [keyboard]
-        bindings = [
-            { key = "U", mods = "Command|Super|Shift", command = { program = "${pkgs.alacritty}/bin/alacritty", args = ["msg", "config", 'window.opacity=1.0'] } },
-            { key = "U", mods = "Command|Super", command = { program = "${pkgs.alacritty}/bin/alacritty", args = ["msg", "config", 'window.opacity=0.7'] } }
-        ]
-      '';
+}: {
+  options.myAlacritty = {
+    fontFamily = lib.mkOption {
+      type = lib.types.str;
+      default = "MesloLGS Nerd Font Mono";
+      description = "the font family to render";
     };
 
-    home.file."./.config/alacritty/cyberpunk.toml" = {
-      text = ''
-        [colors]
-        draw_bold_text_with_bright_colors = true
-        transparent_background_colors = true
-
-        # Cyberpunk-Neon colours
-        [colors.primary]
-        background = '0x000b1e'
-        foreground = '0x0abdc6'
-
-        [colors.cursor]
-        text = '0x2e2e2d'
-        cursor = '0xffffff'
-
-        [colors.normal]
-        black = '0x123e7c'
-        red = '0xff0000'
-        green = '0xd300c4'
-        yellow = '0xf57800'
-        blue = '0x123e7c'
-        magenta = '0x711c91'
-        cyan = '0x0abdc6'
-        white = '0xd7d7d5'
-
-        [colors.bright]
-        black = '0x1c61c2'
-        red = '0xff0000'
-        green = '0xd300c4'
-        yellow = '0xf57800'
-        blue = '0x00ff00'
-        magenta = '0x711c91'
-        cyan = '0x0abdc6'
-        white = '0xd7d7d5'
-
-        [colors.dim]
-        black = '0x1c61c2'
-        red = '0xff0000'
-        green = '0xd300c4'
-        yellow = '0xf57800'
-        blue = '0x123e7c'
-        magenta = '0x711c91'
-        cyan = '0x0abdc6'
-        white = '0xd7d7d5'
-      '';
-    };
-  };
-
-  ##################################################################
-  # Options
-  ##################################################################
-
-  options.programs.alacritty = {
     fontSize = lib.mkOption {
       type = lib.types.number;
-      default = 15;
+      default = 13;
       description = "the font size to render";
     };
 
-    fontOffset = lib.mkOption {
-      type = lib.types.str;
-      default = "{ x = 0, y = 0 }";
-      description = ''
-        the font spacing offsets provided as '{ x = <int>, y = <int> }'
-      '';
+    opacity = lib.mkOption {
+      type = lib.types.number;
+      default = 0.60;
+      description = "background window opacity";
     };
   };
 
-  ##################################################################
-  # Config
-  ##################################################################
+  config.home.file."./.config/alacritty/alacritty.toml".text = let
+    cfg = config.myAlacritty;
+  in ''
+    # Alacritty: Catppuccin Mocha + transparency
 
-  config.programs.alacritty = lib.mkIf cfg.enable {};
+    [window]
+    opacity = ${builtins.toString cfg.opacity}
+    blur = true
+    padding = { x = 16, y = 16 }
+    decorations = "buttonless"
+    startup_mode = "Windowed"
+    dimensions = { columns = 220, lines = 50 }
+    title = "alacritty"
+    dynamic_title = true
+
+    [[keyboard.bindings]]
+    key = "Return"
+    mods = "Command"
+    action = "ToggleFullscreen"
+
+    [font]
+    size = ${builtins.toString cfg.fontSize}
+
+    [font.normal]
+    family = "${cfg.fontFamily}"
+    style = "Regular"
+
+    [font.bold]
+    family = "${cfg.fontFamily}"
+    style = "Bold"
+
+    [font.italic]
+    family = "${cfg.fontFamily}"
+    style = "Italic"
+
+    [cursor]
+    style = { shape = "Block", blinking = "On" }
+    blink_interval = 600
+    unfocused_hollow = true
+
+    [scrolling]
+    history = 10000
+
+    # Catppuccin Mocha palette
+    [colors.primary]
+    background = "#1e1e2e"
+    foreground = "#cdd6f4"
+    dim_foreground = "#7f849c"
+    bright_foreground = "#cdd6f4"
+
+    [colors.cursor]
+    text = "#1e1e2e"
+    cursor = "#f5e0dc"
+
+    [colors.vi_mode_cursor]
+    text = "#1e1e2e"
+    cursor = "#b4befe"
+
+    [colors.search.matches]
+    foreground = "#1e1e2e"
+    background = "#a6adc8"
+
+    [colors.search.focused_match]
+    foreground = "#1e1e2e"
+    background = "#a6e3a1"
+
+    [colors.footer_bar]
+    foreground = "#1e1e2e"
+    background = "#a6adc8"
+
+    [colors.hints.start]
+    foreground = "#1e1e2e"
+    background = "#f9e2af"
+
+    [colors.hints.end]
+    foreground = "#1e1e2e"
+    background = "#a6adc8"
+
+    [colors.selection]
+    text = "#1e1e2e"
+    background = "#f2cdcd"
+
+    [colors.normal]
+    black   = "#45475a"
+    red     = "#f38ba8"
+    green   = "#a6e3a1"
+    yellow  = "#f9e2af"
+    blue    = "#89b4fa"
+    magenta = "#f5c2e7"
+    cyan    = "#94e2d5"
+    white   = "#bac2de"
+
+    [colors.bright]
+    black   = "#585b70"
+    red     = "#f38ba8"
+    green   = "#a6e3a1"
+    yellow  = "#f9e2af"
+    blue    = "#89b4fa"
+    magenta = "#f5c2e7"
+    cyan    = "#94e2d5"
+    white   = "#a6adc8"
+
+    [colors.dim]
+    black   = "#45475a"
+    red     = "#f38ba8"
+    green   = "#a6e3a1"
+    yellow  = "#f9e2af"
+    blue    = "#89b4fa"
+    magenta = "#f5c2e7"
+    cyan    = "#94e2d5"
+    white   = "#bac2de"
+  '';
 }

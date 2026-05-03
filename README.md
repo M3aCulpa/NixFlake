@@ -1,14 +1,21 @@
 # nix-flake
 
-A Nix flake-based setup to manage macOS (via `nix-darwin`), Homebrew integration, and Home Manager modules. This repo takes a modular approach, making it easy to configure environments and tools across devices.
+A Nix flake-based setup to manage macOS (via `nix-darwin`), NixOS-WSL, Homebrew integration, and Home Manager modules. Modular layout for sharing config across devices.
 
-## Key Directories
+## Layout
 
-- **home/**: Home Manager configs for shells, editors, and terminal emulators.
-- **hosts/**: Device-specific configs (e.g., MacBook Pro, desktop).
-- **modules/**: Reusable Nix modules for apps and tools.
-- **settings/**: System settings for macOS and NixOS (fonts, Homebrew, etc.).
+- **flake.nix**: top-level inputs, dev shell, and host outputs.
+- **hosts/**: per-machine configuration (`mbp`, `nixos-wsl`).
+- **settings/**: system-level NixOS / nix-darwin modules (fonts, Homebrew, users, nix daemon).
+- **home/**: per-user Home Manager configs (shells, editors, dev tools).
+- **modules/**: reusable Home Manager modules (alacritty, neovim).
 
-## Secrets Management
+## Build
 
-- **agenix**: Securely manage Nix secrets using age-encrypted files.
+```sh
+# macOS
+darwin-rebuild switch --flake .#mbp
+
+# NixOS-WSL
+sudo nixos-rebuild switch --flake .#nixos-wsl
+```

@@ -1,9 +1,7 @@
-{...}: let
-in {
+{
   imports = [
+    ../base
     ./homebrew.nix
     ./users.nix
-
-    ../base
   ];
 }

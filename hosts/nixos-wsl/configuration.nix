@@ -1,38 +1,36 @@
 {pkgs, ...}: {
+  imports = [./services.nix];
 
-  # System packages
-  environment.systemPackages = with pkgs; [
-    git
-    jq
-    docker
-    buildkit
-    rootlesskit
-    containerd
-    docker-compose
-    gnupg
-    neofetch
-    openssl
-    parallel
-    azure-cli
-    kubectl
-    kind
-    kubernetes-helm
-    pcsctools
-    qemu
-    sshpass
-    virtio-win
-    xsel
-  ];
+  environment = {
+    systemPackages = with pkgs; [
+      git
+      docker
+      buildkit
+      rootlesskit
+      containerd
+      docker-compose
+      gnupg
+      neofetch
+      openssl
+      parallel
+      azure-cli
+      kubectl
+      kind
+      kubernetes-helm
+      pcsctools
+      qemu
+      sshpass
+      virtio-win
+      xsel
+    ];
+    shells = with pkgs; [zsh];
+  };
 
-   security.sudo = {
+  security.sudo = {
     enable = true;
     wheelNeedsPassword = true;
   };
 
-  # Add zsh to /etc/shells.
-  environment.shells = with pkgs; [zsh];
-
-  # Programs
   programs = {
     zsh.enable = true;
     gnupg.agent = {
@@ -41,13 +39,11 @@
     };
   };
 
-  # Time zone
   time = {
     hardwareClockInLocalTime = true;
     timeZone = "America/New_York";
   };
 
-  # Select internationalisation properties.
   i18n = {
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {
@@ -63,34 +59,27 @@
     };
   };
 
-  # Networking
   networking = {
-    hostName = "nixos"; # Define your hostname.
+    hostName = "nixos";
     networkmanager.enable = true;
-
-    # Open ports in the firewall.
     firewall.allowedTCPPorts = [
       22
       3306
-      6443 # k3s: required so that pods can reach the API server (running on port 6443 by default)
+      6443 # k3s API server
       8080
     ];
   };
 
-  # Virtualisation settings
   virtualisation = {
     docker.rootless = {
       enable = true;
       setSocketVariable = true;
     };
-    containerd = {
-      enable = true;
-    };
+    containerd.enable = true;
     libvirtd.enable = true;
-    # vmware.host.enable = true;
   };
 
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.05"; # Did you read the comment?
+  system.stateVersion = "23.05";
 }

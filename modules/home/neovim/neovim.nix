@@ -6,24 +6,12 @@
 }: let
   cfg = config.programs.neovim;
 
-  ##################################################################
-  # Trash tool for Nvim-Tree
-  ##################################################################
-
   trash_cmd =
     if pkgs.system == "aarch64-darwin"
     then pkgs.darwin.trash
     else pkgs.trash-cli;
 
-  ##################################################################
-  # Telescope fzf
-  ##################################################################
-
   telescope-fzf = pkgs.vimPlugins.telescope-fzf-native-nvim;
-
-  ##################################################################
-  # Treesitter
-  ##################################################################
 
   treesitterWithGrammars = pkgs.vimPlugins.nvim-treesitter.withPlugins (
     p:
@@ -56,18 +44,31 @@
     paths = treesitterWithGrammars.dependencies;
   };
 in {
-  config = {
-    ##################################################################
-    # Files
-    ##################################################################
-
-    home.packages = [
-      trash_cmd
-    ];
-
-    ##################################################################
-    # Files
-    ##################################################################
+  config = lib.mkIf cfg.enable {
+    programs.neovim = {
+      defaultEditor = lib.mkDefault true;
+      viAlias = lib.mkDefault true;
+      vimAlias = lib.mkDefault true;
+      extraPackages =
+        [
+          pkgs.alejandra
+          pkgs.clang-tools
+          pkgs.delve
+          pkgs.fzf
+          pkgs.gopls
+          pkgs.gofumpt
+          pkgs.goimports-reviser
+          pkgs.lua-language-server
+          pkgs.lldb
+          pkgs.nixd
+          trash_cmd
+        ]
+        ++ cfg.additionalPackages;
+      plugins = [
+        telescope-fzf
+        treesitterWithGrammars
+      ];
+    };
 
     home.file."./.config/nvim/" = {
       source = ./nvim;
@@ -187,10 +188,6 @@ in {
     };
   };
 
-  ##################################################################
-  # Options
-  ##################################################################
-
   options.programs.neovim = {
     additionalPackages = lib.mkOption {
       type = lib.types.listOf lib.types.package;
@@ -227,32 +224,4 @@ in {
     };
   };
 
-  ##################################################################
-  # Config
-  ##################################################################
-
-  config.programs.neovim = lib.mkIf cfg.enable {
-    defaultEditor = lib.mkDefault true;
-    viAlias = lib.mkDefault true;
-    vimAlias = lib.mkDefault true;
-    extraPackages =
-      [
-        pkgs.alejandra # Nix formatter
-        pkgs.clang-tools
-        pkgs.delve
-        pkgs.fzf
-        pkgs.gopls
-        pkgs.gofumpt
-        pkgs.goimports-reviser
-        pkgs.lua-language-server
-        pkgs.lldb
-        pkgs.nixd # Nix lauguage server
-        trash_cmd
-      ]
-      ++ cfg.additionalPackages;
-    plugins = [
-      telescope-fzf
-      treesitterWithGrammars
-    ];
-  };
 }

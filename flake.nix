@@ -49,34 +49,27 @@
     # NixOS Machines
     #####################################################
 
-    nixosConfigurations = {
-      nixos-wsl = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          nixos-wsl.nixosModules.default
-          {
-            wsl.enable = true;
-          }
-          ./hosts/nixos-wsl
-          inputs.home-manager.nixosModules.home-manager
-        ];
-      };
+    nixosConfigurations.nixos-wsl = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = {inherit inputs outputs;};
+      modules = [
+        nixos-wsl.nixosModules.default
+        inputs.home-manager.nixosModules.home-manager
+        ./hosts/nixos-wsl
+      ];
     };
 
     #####################################################
     # MacOS Machines
     #####################################################
 
-    darwinConfigurations = {
-      mbp = darwin.lib.darwinSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          ./hosts/mbp
-          inputs.home-manager.darwinModules.home-manager
-          inputs.nix-homebrew.darwinModules.nix-homebrew
-        ];
-      };
+    darwinConfigurations.mbp = darwin.lib.darwinSystem {
+      specialArgs = {inherit inputs outputs;};
+      modules = [
+        inputs.home-manager.darwinModules.home-manager
+        inputs.nix-homebrew.darwinModules.nix-homebrew
+        ./hosts/mbp
+      ];
     };
   };
 }

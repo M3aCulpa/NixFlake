@@ -14,7 +14,5 @@ in {
     user = m3aculpa;
   };
 
-  home-manager.users = {
-    "${m3aculpa.name}" = import ../../home/darwin;
-  };
+  home-manager.users.${m3aculpa.name} = import ../../home/darwin;
 }
