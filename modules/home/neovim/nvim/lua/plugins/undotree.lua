@@ -1,4 +1,4 @@
--- Reveals the vim undo tree for better undo-ing
+-- visual undo tree
 return {
   'mbbill/undotree',
   enabled = true,

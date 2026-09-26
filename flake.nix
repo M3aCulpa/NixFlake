@@ -33,7 +33,7 @@
     forAllSystems = nixpkgs.lib.genAttrs ["x86_64-linux" "aarch64-darwin"];
   in {
     #####################################################
-    # Dev Shell
+    # dev shell
     #####################################################
 
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
@@ -51,7 +51,7 @@
     });
 
     #####################################################
-    # NixOS Machines
+    # nixos hosts
     #####################################################
 
     nixosConfigurations.nixos-wsl = nixpkgs.lib.nixosSystem {
@@ -65,7 +65,7 @@
     };
 
     #####################################################
-    # MacOS Machines
+    # macos hosts
     #####################################################
 
     darwinConfigurations.mbp = darwin.lib.darwinSystem {

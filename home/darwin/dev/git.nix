@@ -1,8 +1,6 @@
 {...}: {
-  # `programs.git` will generate the config file: ~/.config/git/config
-  # to make git use this config file, `~/.gitconfig` should not exist!
-  #
-  #    https://git-scm.com/docs/git-config#Documentation/git-config.txt---global
+  # programs.git writes ~/.config/git/config; ~/.gitconfig must not exist or git ignores it
+  # https://git-scm.com/docs/git-config#Documentation/git-config.txt---global
   programs.git = {
     enable = true;
     lfs.enable = true;

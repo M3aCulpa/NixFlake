@@ -1,4 +1,4 @@
--- Remove word wrap fix inside of nvim-tree to prevent stuttering.
+-- drop the word wrap fix inside nvim-tree; it causes stuttering
 vim.keymap.set('n', 'k', "'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "'j'", { expr = true, silent = true })
 

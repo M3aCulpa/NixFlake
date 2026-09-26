@@ -33,7 +33,6 @@
 
   programs.zsh.enable = true;
 
-  # Used for backwards compatibility, please read the changelog before changing.
-  # $ darwin-rebuild changelog
+  # compat value; read `darwin-rebuild changelog` before changing
   system.stateVersion = 4;
 }

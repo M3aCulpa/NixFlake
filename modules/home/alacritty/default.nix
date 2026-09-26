@@ -26,7 +26,7 @@
   config.home.file."./.config/alacritty/alacritty.toml".text = let
     cfg = config.myAlacritty;
   in ''
-    # Alacritty: Catppuccin Mocha + transparency
+    # catppuccin mocha + transparency
 
     [window]
     opacity = ${builtins.toString cfg.opacity}
@@ -66,7 +66,7 @@
     [scrolling]
     history = 10000
 
-    # Catppuccin Mocha palette
+    # catppuccin mocha palette
     [colors.primary]
     background = "#1e1e2e"
     foreground = "#cdd6f4"

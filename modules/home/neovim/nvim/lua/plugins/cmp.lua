@@ -1,4 +1,4 @@
--- Autocompletion
+-- autocompletion
 return {
   {
     'hrsh7th/nvim-cmp',
@@ -14,7 +14,7 @@ return {
       {'onsails/lspkind.nvim'},
     },
     config = function()
-      -- And you can configure cmp even more, if you want to.
+      -- further cmp config goes here
       local cmp = require('cmp')
 
       require('luasnip.loaders.from_vscode').lazy_load()

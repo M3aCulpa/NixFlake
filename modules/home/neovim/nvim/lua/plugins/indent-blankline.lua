@@ -1,4 +1,4 @@
--- Add indentation guides even on blank lines
+-- indent guides, including blank lines
 return {
   {
     'lukas-reineke/indent-blankline.nvim',

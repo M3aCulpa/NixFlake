@@ -1,4 +1,4 @@
--- Git commandline, but in nvim.
+-- git inside nvim
 return {
   'tpope/vim-fugitive',
   enabled = true,

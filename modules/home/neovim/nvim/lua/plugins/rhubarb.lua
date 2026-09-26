@@ -1,4 +1,4 @@
--- Git remote repository browser.
+-- open files on github
 return {
   'tpope/vim-rhubarb',
   enabled = true,
