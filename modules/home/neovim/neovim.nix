@@ -221,5 +221,4 @@ in {
       description = "additional lines to pass to 'null_ls.setup()'";
     };
   };
-
 }

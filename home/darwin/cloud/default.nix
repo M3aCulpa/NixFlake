@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     # aws
     awscli
@@ -18,6 +15,5 @@
     kustomize
     istioctl
     fluxcd
-
   ];
 }
