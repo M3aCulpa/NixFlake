@@ -12,7 +12,7 @@
         options = "--delete-older-than 7d";
       }
       // (
-        if pkgs.stdenv.isDarwin
+        if pkgs.stdenv.hostPlatform.isDarwin
         then {
           interval = {
             Weekday = 0;

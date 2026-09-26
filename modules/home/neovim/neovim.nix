@@ -44,6 +44,9 @@ in {
       defaultEditor = lib.mkDefault true;
       viAlias = lib.mkDefault true;
       vimAlias = lib.mkDefault true;
+      # the config is pure lua; no python or ruby provider needed
+      withPython3 = lib.mkDefault false;
+      withRuby = lib.mkDefault false;
       extraPackages =
         [
           pkgs.alejandra
