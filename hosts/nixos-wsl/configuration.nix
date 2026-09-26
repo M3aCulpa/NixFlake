@@ -10,7 +10,7 @@
       containerd
       docker-compose
       gnupg
-      neofetch
+      fastfetch
       openssl
       parallel
       azure-cli

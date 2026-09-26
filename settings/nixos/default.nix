@@ -1,6 +1,5 @@
 {
   imports = [
     ../base
-    ./users.nix
   ];
 }

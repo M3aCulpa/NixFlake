@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    nodePackages.pnpm
+    pnpm
     pandoc
     nodejs_22
     cmake

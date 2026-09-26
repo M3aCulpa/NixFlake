@@ -6,11 +6,6 @@
 }: let
   cfg = config.programs.neovim;
 
-  trash_cmd =
-    if pkgs.system == "aarch64-darwin"
-    then pkgs.darwin.trash
-    else pkgs.trash-cli;
-
   telescope-fzf = pkgs.vimPlugins.telescope-fzf-native-nvim;
 
   treesitterWithGrammars = pkgs.vimPlugins.nvim-treesitter.withPlugins (
@@ -61,7 +56,7 @@ in {
           pkgs.lua-language-server
           pkgs.lldb
           pkgs.nixd
-          trash_cmd
+          pkgs.trash-cli
         ]
         ++ cfg.additionalPackages;
       plugins = [

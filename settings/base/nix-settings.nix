@@ -1,36 +1,28 @@
-{pkgs, ...}: let
-  gc_settings =
-    if pkgs.system == "aarch64-darwin"
-    then {
-      interval = {
-        Weekday = 0;
-        Hour = 0;
-        Minute = 0;
-      };
-    }
-    else {dates = "weekly";};
-in {
+{pkgs, ...}: {
   nix = {
     package = pkgs.nix;
-    settings = {
-      # Enable Flakes
-      experimental-features = ["nix-command" "flakes"];
-      auto-optimise-store = true;
-    };
+    settings.experimental-features = ["nix-command" "flakes"];
 
-    # Setup automatic garbage collection.
+    # auto-optimise-store corrupts the store on macos; nix-darwin refuses it
+    optimise.automatic = true;
+
     gc =
       {
         automatic = true;
         options = "--delete-older-than 7d";
       }
-      // gc_settings;
+      // (
+        if pkgs.stdenv.isDarwin
+        then {
+          interval = {
+            Weekday = 0;
+            Hour = 0;
+            Minute = 0;
+          };
+        }
+        else {dates = "weekly";}
+      );
   };
 
-  # Allow unfree packages
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-    };
-  };
+  nixpkgs.config.allowUnfree = true;
 }
