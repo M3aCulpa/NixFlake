@@ -12,7 +12,10 @@ in {
     ../../settings/nixos
   ];
 
-  wsl.enable = true;
+  wsl = {
+    enable = true;
+    defaultUser = jbenge.name;
+  };
 
   systemSettings = {
     enable = true;

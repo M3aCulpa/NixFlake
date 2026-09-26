@@ -1,0 +1,67 @@
+name: ci
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  lock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@v16
+      - run: nix flake update
+      - uses: actions/upload-artifact@v4
+        with:
+          name: flake-lock
+          path: flake.lock
+
+  eval-darwin:
+    needs: lock
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: flake-lock
+      - uses: DeterminateSystems/nix-installer-action@v16
+      - run: nix eval --raw .#darwinConfigurations.mbp.system.drvPath
+
+  eval-wsl:
+    needs: lock
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: flake-lock
+      - uses: DeterminateSystems/nix-installer-action@v16
+      - run: nix eval --raw .#nixosConfigurations.nixos-wsl.config.system.build.toplevel.drvPath
+
+  fmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@v16
+      - run: nix run nixpkgs#alejandra -- --check .
+
+  commit-lock:
+    needs: [eval-darwin, eval-wsl]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: flake-lock
+      - run: |
+          if git diff --quiet flake.lock; then
+            echo "flake.lock unchanged"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "update flake.lock" flake.lock
+          git push
