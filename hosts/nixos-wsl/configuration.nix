@@ -17,7 +17,7 @@
       kubectl
       kind
       kubernetes-helm
-      pcsctools
+      pcsc-tools
       qemu
       sshpass
       virtio-win
