@@ -1,5 +1,4 @@
--- Allows you to mask values based on patterns,
--- good for presentations.
+-- masks values matching patterns; good for presentations
 return {
   'laytan/cloak.nvim',
   enabled = true,
@@ -13,18 +12,16 @@ return {
     require("cloak").setup({
         enabled = true,
         cloak_character = "*",
-        -- The applied highlight group (colors) on the cloaking, see `:h highlight`.
+        -- highlight group for cloaked text, see `:h highlight`
         highlight_group = "Comment",
         patterns = {
             {
-                -- Match any file starting with ".env".
-                -- This can be a table to match multiple file patterns.
+                -- match any file starting with ".env"; can be a table of patterns
                 file_pattern = {
                     "*.enc.yaml",
                     ".env*",
                 },
-                -- Match an equals sign and any character after it.
-                -- This can also be a table of patterns to cloak,
+                -- match an equals sign and everything after it; can be a table of patterns,
                 -- example: cloak_pattern = { ":.+", "-.+" } for yaml files.
                 cloak_pattern = { "=.+", ":.+", "-.+" }
             },

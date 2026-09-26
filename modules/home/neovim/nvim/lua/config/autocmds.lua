@@ -1,7 +1,7 @@
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
--- Create autogroup.
+-- create autogroup
 local molaromAG = augroup('molarom', { clear = true })
 
 autocmd('TextYankPost', {

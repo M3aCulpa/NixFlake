@@ -6,7 +6,7 @@
   cfg = config.systemSettings;
 in {
   config = lib.mkIf cfg.enable {
-    # nix-darwin runs activation as root; homebrew and user-scoped options apply to this user
+    # activation runs as root; homebrew and user-scoped options target this user
     system.primaryUser = cfg.user.name;
 
     nix-homebrew = {

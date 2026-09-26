@@ -1,6 +1,6 @@
 return {
   {
-    -- Highlight, edit, and navigate code
+    -- highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     depends = { 'nvim-treesitter/nvim-treesitter-textobjects' },
     enabled = true,
@@ -15,11 +15,11 @@ return {
       local configs = require("nvim-treesitter.configs")
 
       configs.setup({
-        -- Don't install missing parsers when entering buffer.
+        -- don't install missing parsers on buffer enter
         auto_install = false,
-        -- Left to quiet LSP.
+        -- off to quiet lsp
         ignore_install = {},
-        -- Left to quiet LSP.
+        -- off to quiet lsp
         modules = {},
         highlight = { enable = true },
         indent = { enable = true },

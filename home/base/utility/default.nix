@@ -16,21 +16,21 @@
   ];
 
   programs = {
-    # zoxide is a smarter cd command, inspired by z and autojump.
+    # zoxide: smarter cd
     zoxide = {
       enable = true;
       enableBashIntegration = true;
       enableZshIntegration = true;
     };
 
-    # atuin replaces existing shell history with a SQLite database and syncs it across all your shells.
+    # atuin: sqlite shell history synced across shells
     atuin = {
       enable = true;
       enableBashIntegration = true;
       enableZshIntegration = true;
     };
 
-    # a cat clone with syntax highlighting and Git integration.
+    # bat: cat with syntax highlighting and git integration
     bat = {
       enable = true;
       config = {

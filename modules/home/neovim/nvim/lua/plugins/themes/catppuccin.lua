@@ -12,11 +12,11 @@ require("catppuccin").setup {
         shade = "dark",
         percentage = 0.15, -- percentage of the shade to apply to the inactive window
     },
-    no_italic = false, -- Force no italic
-    no_bold = false, -- Force no bold
-    no_underline = false, -- Force no underline
-    styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
-        comments = { "italic" }, -- Change the style of comments
+    no_italic = false, -- force no italic
+    no_bold = false, -- force no bold
+    no_underline = false, -- force no underline
+    styles = { -- styles for general hi groups (see `:h highlight-args`)
+        comments = { "italic" }, -- comment style
         conditionals = { "italic" },
         loops = {},
         functions = {},
@@ -28,7 +28,7 @@ require("catppuccin").setup {
         properties = {},
         types = {},
         operators = {},
-        -- miscs = {}, -- Uncomment to turn off hard-coded styles
+        -- miscs = {}, -- uncomment to turn off hard-coded styles
     },
     color_overrides = {},
     custom_highlights = {},
@@ -43,6 +43,6 @@ require("catppuccin").setup {
             enabled = true,
             indentscope_color = "",
         },
-        -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+        -- more integrations: https://github.com/catppuccin/nvim#integrations
     },
 }

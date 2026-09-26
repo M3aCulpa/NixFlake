@@ -1,4 +1,4 @@
--- LSP message reporting.
+-- lsp diagnostics list
 
 return {
   'folke/trouble.nvim',

@@ -1,4 +1,4 @@
--- Nice VSCode inspired file explorer.
+-- file explorer
 return {
   {
     "nvim-tree/nvim-tree.lua",

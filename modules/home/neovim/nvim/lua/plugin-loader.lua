@@ -1,4 +1,4 @@
--- Bootstrap lazynvim
+-- bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system {
@@ -25,7 +25,7 @@ local opts = {
   ui = {
      -- a number <1 is a percentage., >1 is a fixed size
      size = { width = 0.8, height = 0.8 },
-     -- The border to use for the UI window. Accepts same border values as |nvim_open_win()|.
+     -- border for the ui window; same values as |nvim_open_win()|
      border = "rounded",
      icons = {
        ft = "",
@@ -59,11 +59,9 @@ local opts = {
     cache = {
       enabled = true,
       path = vim.fn.stdpath "state" .. "/lazy/cache",
-      -- Once one of the following events triggers, caching will be disabled.
-      -- To cache all modules, set this to `{}`, but that is not recommended.
-      -- The default is to disable on:
-      --  * VimEnter: not useful to cache anything else beyond startup
-      --  * BufReadPre: this will be triggered early when opening a file from the command line directly
+      -- caching stops once one of these events fires; {} caches everything, not recommended
+      -- * VimEnter: nothing useful to cache past startup
+      -- * BufReadPre: fires early when opening a file from the cli
       disable_events = { "UIEnter", "VimEnter", "BufReadPre" },
     },
   },

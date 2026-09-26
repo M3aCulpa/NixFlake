@@ -65,7 +65,7 @@
     firewall.allowedTCPPorts = [
       22
       3306
-      6443 # k3s API server
+      6443 # k3s api
       8080
     ];
   };
@@ -79,7 +79,6 @@
     libvirtd.enable = true;
   };
 
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  # read the docs before changing this
   system.stateVersion = "23.05";
 }

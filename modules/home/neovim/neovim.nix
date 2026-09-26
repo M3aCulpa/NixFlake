@@ -104,7 +104,7 @@ in {
 
     home.file."./.config/nvim/lua/plugins/lsp.lua" = {
       text = ''
-        -- LSP configs
+        -- lsp configs
         local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
         return {
